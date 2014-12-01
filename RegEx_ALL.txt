@@ -1,0 +1,34 @@
+import pymongo, re
+
+conn=pymongo.MongoClient()
+
+conn.database_names()
+
+cn=conn['twitter']
+
+tweet=cn['lines']
+
+
+
+
+symptom = []
+symptom[0]=re.compile(r'(?=.*(Intestinal|Belly|Gastric|Ventral|Visceral|Duodenal|stomachic|stomach|tummy|insides|gut|[cramp|agony|burn|discomfort|illness|fever|injury|irritation|misery|sickness|soreness|spasm|strain|tenderness|torment|trouble|twinge|wound|distress|affliction|convulsion|crick|gripe|hurt|laceration|malady|pang|paroxysm|prick|smarting|sting|stitch|throb|throe|tingle|torture|ache))(?=.*(my kid|my son|my daughter|my baby|my child|my girl|my boy|my babies))(?.=*(help|assist|aid|alleviate|cry|sad|not good|not well|soothe|ease|relieve|lessen)')
+symptom[1]=re.compile(r'(?=.*(contraction|convulsion|stiffness|twinge|circumscription|confinement|crick|kink|impediment|stitch|restriction))(?=.*(my kid|my son|my daughter|my baby|my child|my girl|my boy|my babies))(?.=*(help|assist|aid|alleviate|cry|sad|not good|not well|soothe|ease|relieve|lessen)')
+symptom[2]=re.compile(r'(?=.*(hack|frog in throat| hoarse voice|sick| cough))(?=.*(my kid|my son|my daughter|my baby|my child|my girl|my boy|my babies))(?.=*(help|assist|aid|alleviate|cry|sad|not good|not well|soothe|ease|relieve|lessen)')
+symptom[3]=re.compile(r'(?=.*(earshot|detect|listen|effect|range|reach|sense|auditory|distinguishing))(?=.*(my kid|my son|my daughter|my baby|my child|my girl|my boy|my babies))(?.=*(help|assist|aid|alleviate|cry|sad|not good|not well|soothe|ease|relieve|lessen)')
+symptom[4]=re.compile(r'(?=.*(dysentery|flux|the runs|the trots|montezuma’s revenge|liquid poo|the shits|shits|shit))(?=.*(my kid|my son|my daughter|my baby|my child|my girl|my boy|my babies))(?.=*(help|assist|aid|alleviate|cry|sad|not good|not well|soothe|ease|relieve|lessen)')
+symptom[5]=re.compile(r'(?=.*(hear|sensitivity|anguish|misery|pang|soreness|spasm|twinge|hurt|pound|throb|throe|suffer))(?=.*(my kid|my son|my daughter|my baby|my child|my girl|my boy|my babies))(?.=*(help|assist|aid|alleviate|cry|sad|not good|not well|soothe|ease|relieve|lessen)')
+.....
+symptom[16]=re.compile(		)
+#( we need to discuss for EACH one, what should we put in our regular expression )
+
+
+query = []
+for i in range(symptom) # this loop through our list of symptoms (cough, headaches, nausal, etc...... blah blah blah)
+	query[i]={'text':{'$regex':symptom[i]}}
+	%time see=list(tweet.find(query[i])) # find tweet regarding symptom ith
+	print  
+	print see
+	print  
+
+# We may need to think of a loop for getting tweet every 2 or 3 hours OR 1 hour (as Chris expected...)

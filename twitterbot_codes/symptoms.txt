@@ -1,0 +1,12 @@
+abdomin
+wheez
+the runs
+earache
+eye
+hot flash
+joint
+nasal
+throw\s* up
+skin rash
+sore throat
+urin
